@@ -9,9 +9,9 @@ import pandas
 
 #Caching functions for faster load times
 @st.cache_data
-def load_password_data_cached(file_path, sample_size=100000):
+def load_password_data_cached(sample_size=100000):
     start = time.time()
-    data = load_password_data(file_path, sample_size=sample_size)
+    data = load_password_data(sample_size=sample_size)
     st.write(f"Data loaded in {time.time() - start:.2f} seconds")
     return data
 
@@ -38,8 +38,7 @@ rf_model = joblib.load("rf_model.pk1")
 model_columns = joblib.load("model_columns.pk1")
 
 #Load and preprocess data
-file_path = "data/rockyou.txt"
-password_df = load_password_data_cached(file_path)
+password_df = load_password_data_cached()
 password_df = extract_features_cached(password_df)
 
 st.title("Password Strength Checker Dashboard")
