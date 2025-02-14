@@ -27,7 +27,7 @@ def download_rockyou():
             print("Failed to download rockyou.txt")
     return file_path
 
-def load_password_data(sample_size=None):
+def load_password_data():
 
     file_path = download_rockyou()
 
@@ -44,6 +44,6 @@ def load_password_data(sample_size=None):
     # Removes duplicates
     password_df = password_df.drop_duplicates()
 
-    if sample_size:
-        password_df = password_df.sample(n=sample_size, random_state=42)
+    if len(password_df) > 100000:
+        password_df = password_df.sample(n=100000, random_state=42)
     return password_df

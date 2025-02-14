@@ -9,9 +9,11 @@ import pandas
 
 #Caching functions for faster load times
 @st.cache_data
-def load_password_data_cached(sample_size=100000):
+def load_password_data_cached():
     start = time.time()
-    data = load_password_data(sample_size=sample_size)
+    data = load_password_data()
+    sample_size = min(100000, len(data))
+    data = data.sample(n=sample_size, random_state=42)
     st.write(f"Data loaded in {time.time() - start:.2f} seconds")
     return data
 
